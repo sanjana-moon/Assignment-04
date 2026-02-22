@@ -76,7 +76,7 @@ mainContainer.addEventListener("click", function (event) {
             jobDetails
         }
 
-        const companyAdded = interviewList.find(item => item.companyName == companyName)
+        const companyAdded = interviewList.find(item => item.companyName == cardInfo.companyName)
 
         if (!companyAdded) {
             interviewList.push(cardInfo);
@@ -84,8 +84,8 @@ mainContainer.addEventListener("click", function (event) {
 
         rejectList = rejectList.filter(item => item.companyName != cardInfo.companyName)
 
-        if (currentStatus == 'interview-filter-btn') {
-            interviewSection();
+        if (currentStatus == 'reject-filter-btn') {
+            rejectSection();
         }
         calculationCount();
 
@@ -110,15 +110,15 @@ mainContainer.addEventListener("click", function (event) {
             jobDetails
         }
 
-        const companyAdded = rejectList.find(item => item.companyName == companyName)
+        const companyAdded = rejectList.find(item => item.companyName == cardInfo.companyName)
 
         if (!companyAdded) {
             rejectList.push(cardInfo);
         }
         interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName)
 
-        if (currentStatus == 'reject-filter-btn') {
-            rejectSection();
+        if (currentStatus == 'interview-filter-btn') {
+            interviewSection();
         }
         calculationCount();
     }
