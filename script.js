@@ -1,5 +1,7 @@
+//Take empty array
 let interviewList = [];
 let rejectList = [];
+//creates a variable that stores which filter is currently active
 let currentStatus = 'all';
 
 
@@ -35,7 +37,6 @@ function toggleStyle(id) {
     const selected = document.getElementById(id);
     selected.classList.add('bg-blue-700', 'text-white');
     currentStatus = id
-    console.log(currentStatus);
 
     if (id == 'interview-filter-btn') {
         allCards.classList.add('hidden');
@@ -53,8 +54,9 @@ function toggleStyle(id) {
     }
 }
 
-
+//Listen for any click that happens inside mainContainer, and when it happens, run this function
 mainContainer.addEventListener("click", function (event) {
+    //If the element that was clicked has the class interview-btn, then run this code 
     if (event.target.classList.contains('interview-btn')) {
         const parent = event.target.parentNode.parentNode;
         const companyName = parent.querySelector('.company-name').innerText;
@@ -76,14 +78,18 @@ mainContainer.addEventListener("click", function (event) {
             jobDetails
         }
 
+        // Check if this company already exists in interviewList.
         const companyAdded = interviewList.find(item => item.companyName == cardInfo.companyName)
 
+        // If the company is not in interviewList, then add it
         if (!companyAdded) {
             interviewList.push(cardInfo);
         }
 
+        //Go through rejectList and remove the company that was just moved to Interview.
         rejectList = rejectList.filter(item => item.companyName != cardInfo.companyName)
 
+        //If the user is currently viewing the Reject filter, refresh that section
         if (currentStatus == 'reject-filter-btn') {
             rejectSection();
         }
@@ -110,25 +116,49 @@ mainContainer.addEventListener("click", function (event) {
             jobDetails
         }
 
+        // Check if this company already exists in rejectList.
         const companyAdded = rejectList.find(item => item.companyName == cardInfo.companyName)
 
+        // If the company is not in rejectList, then add it
         if (!companyAdded) {
             rejectList.push(cardInfo);
         }
+
+        //Go through interviewList and remove the company that was just moved to reject.
         interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName)
 
+        //If the user is currently viewing the interview filter, refresh that section
         if (currentStatus == 'interview-filter-btn') {
             interviewSection();
         }
         calculationCount();
     }
+    const deleteButtons = document.querySelectorAll('.btn-circle');
+    for (const button of deleteButtons) {
+        button.addEventListener("click", function () {
+            const divToDelete = this.parentNode.parentNode;
+            console.log(divToDelete)
+            const companyName = divToDelete.querySelector('.company-name').innerText;
+
+            rejectList = rejectList.filter(item => item.companyName != companyName)
+            interviewList = interviewList.filter(item => item.companyName != companyName)
+
+            divToDelete.remove();
+            if (currentStatus == 'reject-filter-btn') {
+                rejectSection();
+            }
+            if (currentStatus == 'interview-filter-btn') {
+                interviewSection();
+            }
+        });
+        calculationCount();
+    };
 })
 
 function interviewSection() {
     filterSection.innerHTML = '';
 
     for (let interview of interviewList) {
-        console.log(interview)
 
         let div = document.createElement('div')
         div.className = 'flex justify-between bg-white rounded-lg p-6 my-4';
@@ -158,7 +188,6 @@ function rejectSection() {
     filterSection.innerHTML = '';
 
     for (let reject of rejectList) {
-        console.log(reject)
 
         let div = document.createElement('div')
         div.className = 'flex justify-between bg-white rounded-lg p-6 my-4';
@@ -184,3 +213,15 @@ function rejectSection() {
     }
 
 }
+// if (event.target.classList.contains('btn-circle')) {
+//     const parent = event.target.parentNode.parentNode;
+//     console.log(parent)
+//     const companyName = parent.querySelector('.company-name').innerText;
+
+
+
+//     parent.remove();
+
+
+// }
+
