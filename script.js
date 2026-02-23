@@ -162,11 +162,18 @@ mainContainer.addEventListener("click", function (event) {
 
 function interviewSection() {
     filterSection.innerHTML = '';
+    if (interviewList.length === 0) {
+        filterSection.innerHTML = `<div class="empty text-center p-[130px] bg-white rounded-lg my-4">
+                <i class="fa-solid fa-file-lines text-9xl text-[#7DA8FF]"></i>
+                <h2 class="text-2xl font-bold text-[#002C5C] mt-6 mb-1">No jobs Available</h2>
+                <p class="text-[#323B49]">Check back soon for new job opportunities</p>
+            </div>`
+    }
 
     for (let interview of interviewList) {
 
         let div = document.createElement('div')
-        div.className = 'flex justify-between bg-white rounded-lg p-6 my-4 border-l-4 border-green-500';
+        div.className = 'card-container flex justify-between bg-white rounded-lg p-6 my-4 border-l-4 border-green-500';
         div.innerHTML = `<div>
                     <h2 class="company-name text-lg text-[#002C5C] font-bold">${interview.companyName}</h2>
                     <p class="job-title text-[#64748B]">${interview.jobTitle}</p>
@@ -192,10 +199,18 @@ function interviewSection() {
 function rejectSection() {
     filterSection.innerHTML = '';
 
+    if (interviewList.length === 0) {
+        filterSection.innerHTML = `<div class="empty text-center p-[130px] bg-white rounded-lg my-4">
+                <i class="fa-solid fa-file-lines text-9xl text-[#7DA8FF]"></i>
+                <h2 class="text-2xl font-bold text-[#002C5C] mt-6 mb-1">No jobs Available</h2>
+                <p class="text-[#323B49]">Check back soon for new job opportunities</p>
+            </div>`
+    }
+
     for (let reject of rejectList) {
 
         let div = document.createElement('div')
-        div.className = 'flex justify-between bg-white rounded-lg p-6 my-4 border-l-4 border-red-500';
+        div.className = 'card-container flex justify-between bg-white rounded-lg p-6 my-4 border-l-4 border-red-500';
         div.innerHTML = `<div>
                     <h2 class="company-name text-lg text-[#002C5C] font-bold">${reject.companyName}</h2>
                     <p class="job-title text-[#64748B]">${reject.jobTitle}</p>
