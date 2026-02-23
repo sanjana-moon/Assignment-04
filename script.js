@@ -66,6 +66,9 @@ mainContainer.addEventListener("click", function (event) {
         const jobDetails = parent.querySelector('.job-details').innerText;
 
 
+        const cardContainer = parent.parentNode;
+        cardContainer.classList.add('border-l-4', 'border-green-500')
+
         const status = parent.querySelector('.job-status');
         status.innerText = 'Interview';
         status.classList.add('bg-green-50', 'text-green-900');
@@ -104,6 +107,9 @@ mainContainer.addEventListener("click", function (event) {
         const jobStatus = parent.querySelector('.job-status').innerText;
         const jobDetails = parent.querySelector('.job-details').innerText;
 
+        const cardContainer = parent.parentNode;
+        cardContainer.classList.add('border-l-4', 'border-red-500')
+
 
         const status = parent.querySelector('.job-status');
         status.innerText = 'Rejected';
@@ -133,26 +139,25 @@ mainContainer.addEventListener("click", function (event) {
         }
         calculationCount();
     }
-    const deleteButtons = document.querySelectorAll('.btn-circle');
-    for (const button of deleteButtons) {
-        button.addEventListener("click", function () {
-            const divToDelete = this.parentNode.parentNode;
-            console.log(divToDelete)
-            const companyName = divToDelete.querySelector('.company-name').innerText;
 
-            rejectList = rejectList.filter(item => item.companyName != companyName)
-            interviewList = interviewList.filter(item => item.companyName != companyName)
+    else if (event.target.closest('.btn-circle')) {
+        const divToDelete = event.target.parentNode.parentNode;
+        const companyName = divToDelete.querySelector('.company-name').innerText;
 
-            divToDelete.remove();
-            if (currentStatus == 'reject-filter-btn') {
-                rejectSection();
-            }
-            if (currentStatus == 'interview-filter-btn') {
-                interviewSection();
-            }
-        });
-        calculationCount();
-    };
+        rejectList = rejectList.filter(item => item.companyName != companyName)
+        interviewList = interviewList.filter(item => item.companyName != companyName)
+
+        divToDelete.remove();
+        if (currentStatus == 'reject-filter-btn') {
+            rejectSection();
+        }
+        if (currentStatus == 'interview-filter-btn') {
+            interviewSection();
+        }
+    calculationCount();
+    }
+
+
 })
 
 function interviewSection() {
@@ -161,7 +166,7 @@ function interviewSection() {
     for (let interview of interviewList) {
 
         let div = document.createElement('div')
-        div.className = 'flex justify-between bg-white rounded-lg p-6 my-4';
+        div.className = 'flex justify-between bg-white rounded-lg p-6 my-4 border-l-4 border-green-500';
         div.innerHTML = `<div>
                     <h2 class="company-name text-lg text-[#002C5C] font-bold">${interview.companyName}</h2>
                     <p class="job-title text-[#64748B]">${interview.jobTitle}</p>
@@ -190,7 +195,7 @@ function rejectSection() {
     for (let reject of rejectList) {
 
         let div = document.createElement('div')
-        div.className = 'flex justify-between bg-white rounded-lg p-6 my-4';
+        div.className = 'flex justify-between bg-white rounded-lg p-6 my-4 border-l-4 border-red-500';
         div.innerHTML = `<div>
                     <h2 class="company-name text-lg text-[#002C5C] font-bold">${reject.companyName}</h2>
                     <p class="job-title text-[#64748B]">${reject.jobTitle}</p>
@@ -213,15 +218,3 @@ function rejectSection() {
     }
 
 }
-// if (event.target.classList.contains('btn-circle')) {
-//     const parent = event.target.parentNode.parentNode;
-//     console.log(parent)
-//     const companyName = parent.querySelector('.company-name').innerText;
-
-
-
-//     parent.remove();
-
-
-// }
-
