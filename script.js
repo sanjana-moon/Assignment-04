@@ -141,22 +141,29 @@ mainContainer.addEventListener("click", function (event) {
     }
 
     else if (event.target.closest('.btn-circle')) {
-        const divToDelete = event.target.parentNode.parentNode;
-        const companyName = divToDelete.querySelector('.company-name').innerText;
+        const card = event.target.closest('.card-container');
 
-        rejectList = rejectList.filter(item => item.companyName != companyName)
-        interviewList = interviewList.filter(item => item.companyName != companyName)
+        if (card) {
+            const companyName = card.querySelector('.company-name').innerText;
 
-        divToDelete.remove();
-        if (currentStatus == 'reject-filter-btn') {
-            rejectSection();
+            
+            rejectList = rejectList.filter(item => item.companyName !== companyName);
+            interviewList = interviewList.filter(item => item.companyName !== companyName);
+
+           
+            card.remove();
+
+                        if (currentStatus === 'reject-filter-btn') {
+                rejectSection();
+            } else if (currentStatus === 'interview-filter-btn') {
+                interviewSection();
+            } else {
+                
+                calculationCount();
+            }
+            calculationCount();
         }
-        if (currentStatus == 'interview-filter-btn') {
-            interviewSection();
-        }
-    calculationCount();
     }
-
 
 })
 
@@ -199,13 +206,14 @@ function interviewSection() {
 function rejectSection() {
     filterSection.innerHTML = '';
 
-    if (interviewList.length === 0) {
+    if (rejectList.length === 0) {
         filterSection.innerHTML = `<div class="empty text-center p-[130px] bg-white rounded-lg my-4">
                 <i class="fa-solid fa-file-lines text-9xl text-[#7DA8FF]"></i>
                 <h2 class="text-2xl font-bold text-[#002C5C] mt-6 mb-1">No jobs Available</h2>
                 <p class="text-[#323B49]">Check back soon for new job opportunities</p>
             </div>`
     }
+
 
     for (let reject of rejectList) {
 
