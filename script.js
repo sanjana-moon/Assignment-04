@@ -64,8 +64,30 @@ mainContainer.addEventListener("click", function (event) {
         const jobStatus = parent.querySelector('.job-status').innerText;
         const jobDetails = parent.querySelector('.job-details').innerText;
 
-        parent.classList.remove('border-red-500');
-        parent.classList.add('border-l-4', 'border-green-500');
+        const allCardElements = document.querySelectorAll('.card-container');
+        allCardElements.forEach(card => {
+            const name = card.querySelector('.company-name').innerText;
+
+            if (name === companyName) {
+                card.classList.remove('border-red-500', 'border-green-500');
+                if (event.target.classList.contains('interview-btn')) {
+                    card.classList.add('border-l-4', 'border-green-500');
+
+                    const status = card.querySelector('.job-status');
+                    status.innerText = 'Interview';
+                    status.classList.remove('bg-red-50', 'text-red-900');
+                    status.classList.add('bg-green-50', 'text-green-900');
+
+                } else if (event.target.classList.contains('reject-btn')) {
+                    card.classList.add('border-l-4', 'border-red-500');
+
+                    const status = card.querySelector('.job-status');
+                    status.innerText = 'Rejected';
+                    status.classList.remove('bg-green-50', 'text-green-900');
+                    status.classList.add('bg-red-50', 'text-red-900');
+                }
+            }
+        });
 
         const status = parent.querySelector('.job-status');
         status.innerText = 'Interview';
@@ -80,19 +102,15 @@ mainContainer.addEventListener("click", function (event) {
             jobDetails
         }
 
-
         const companyAdded = interviewList.find(item => item.companyName == cardInfo.companyName)
         if (!companyAdded) {
             interviewList.push(cardInfo);
         }
-
         rejectList = rejectList.filter(item => item.companyName != cardInfo.companyName)
-
         if (currentStatus == 'reject-filter-btn') {
             rejectSection();
         }
         calculationCount();
-
     }
     else if (event.target.classList.contains('reject-btn')) {
         const parent = event.target.closest('.card-container');
@@ -102,14 +120,34 @@ mainContainer.addEventListener("click", function (event) {
         const jobStatus = parent.querySelector('.job-status').innerText;
         const jobDetails = parent.querySelector('.job-details').innerText;
 
-        parent.classList.remove('border-green-500')
-        parent.classList.add('border-l-4', 'border-red-500')
 
+        const allCardElements = document.querySelectorAll('.card-container');
+        allCardElements.forEach(card => {
+            const name = card.querySelector('.company-name').innerText;
 
-        const status = parent.querySelector('.job-status');
-        status.innerText = 'Rejected';
-        status.classList.remove('bg-green-50', 'text-green-900');
-        status.classList.add('bg-red-50', 'text-red-900');
+            if (name === companyName) {
+
+                card.classList.remove('border-red-500', 'border-green-500');
+
+                if (event.target.classList.contains('interview-btn')) {
+                    card.classList.add('border-l-4', 'border-green-500');
+
+                    const status = card.querySelector('.job-status');
+                    status.innerText = 'Interview';
+                    status.classList.remove('bg-red-50', 'text-red-900');
+                    status.classList.add('bg-green-50', 'text-green-900');
+
+                } else if (event.target.classList.contains('reject-btn')) {
+                    card.classList.add('border-l-4', 'border-red-500');
+
+                    const status = card.querySelector('.job-status');
+                    status.innerText = 'Rejected';
+                    status.classList.remove('bg-green-50', 'text-green-900');
+                    status.classList.add('bg-red-50', 'text-red-900');
+                }
+            }
+        });
+
         const cardInfo = {
             companyName,
             jobTitle,
