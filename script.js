@@ -213,7 +213,7 @@ function interviewSection() {
     for (let interview of interviewList) {
 
         let div = document.createElement('div')
-        div.className = 'card-container flex justify-between bg-white rounded-lg p-6 my-4 border-l-4 border-green-500';
+        div.className = 'card-container bg-white rounded-lg p-6 my-4 border-l-4 border-green-500 lg:flex justify-between';
         div.innerHTML = `<div>
                     <h2 class="company-name text-lg text-[#002C5C] font-bold">${interview.companyName}</h2>
                     <p class="job-title text-[#64748B]">${interview.jobTitle}</p>
@@ -229,7 +229,7 @@ function interviewSection() {
                     </div>
 
                 </div>
-                <div>
+                <div class="flex justify-end">
                     <button class="btn btn-circle"><i class="fa-regular fa-trash-can"></i></button>
                 </div>`
         filterSection.appendChild(div)
@@ -251,7 +251,7 @@ function rejectSection() {
     for (let reject of rejectList) {
 
         let div = document.createElement('div')
-        div.className = 'card-container flex justify-between bg-white rounded-lg p-6 my-4 border-l-4 border-red-500';
+        div.className = 'card-container bg-white rounded-lg p-6 my-4 border-l-4 border-red-500 lg:flex justify-between';
         div.innerHTML = `<div>
                     <h2 class="company-name text-lg text-[#002C5C] font-bold">${reject.companyName}</h2>
                     <p class="job-title text-[#64748B]">${reject.jobTitle}</p>
@@ -267,7 +267,7 @@ function rejectSection() {
                     </div>
 
                 </div>
-                <div>
+                <div class="flex justify-end">
                     <button class="btn btn-circle"><i class="fa-regular fa-trash-can"></i></button>
                 </div>`
         filterSection.appendChild(div)
