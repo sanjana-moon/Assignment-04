@@ -1,7 +1,5 @@
-//Take empty array
 let interviewList = [];
 let rejectList = [];
-//creates a variable that stores which filter is currently active
 let currentStatus = 'all';
 
 
@@ -54,9 +52,7 @@ function toggleStyle(id) {
     }
 }
 
-//Listen for any click that happens inside mainContainer, and when it happens, run this function
 mainContainer.addEventListener("click", function (event) {
-    //If the element that was clicked has the class interview-btn, then run this code 
     if (event.target.classList.contains('interview-btn')) {
         const parent = event.target.parentNode.parentNode;
         const companyName = parent.querySelector('.company-name').innerText;
@@ -81,18 +77,13 @@ mainContainer.addEventListener("click", function (event) {
             jobDetails
         }
 
-        // Check if this company already exists in interviewList.
-        const companyAdded = interviewList.find(item => item.companyName == cardInfo.companyName)
 
-        // If the company is not in interviewList, then add it
+        const companyAdded = interviewList.find(item => item.companyName == cardInfo.companyName)
         if (!companyAdded) {
             interviewList.push(cardInfo);
         }
 
-        //Go through rejectList and remove the company that was just moved to Interview.
         rejectList = rejectList.filter(item => item.companyName != cardInfo.companyName)
-
-        //If the user is currently viewing the Reject filter, refresh that section
         if (currentStatus == 'reject-filter-btn') {
             rejectSection();
         }
@@ -122,18 +113,14 @@ mainContainer.addEventListener("click", function (event) {
             jobDetails
         }
 
-        // Check if this company already exists in rejectList.
         const companyAdded = rejectList.find(item => item.companyName == cardInfo.companyName)
 
-        // If the company is not in rejectList, then add it
         if (!companyAdded) {
             rejectList.push(cardInfo);
         }
 
-        //Go through interviewList and remove the company that was just moved to reject.
         interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName)
 
-        //If the user is currently viewing the interview filter, refresh that section
         if (currentStatus == 'interview-filter-btn') {
             interviewSection();
         }
@@ -141,29 +128,32 @@ mainContainer.addEventListener("click", function (event) {
     }
 
     else if (event.target.closest('.btn-circle')) {
-        const card = event.target.closest('.card-container');
+    const card = event.target.closest('.card-container');
 
-        if (card) {
-            const companyName = card.querySelector('.company-name').innerText;
+    if (card) {
+        const companyName = card.querySelector('.company-name').innerText;
 
-            
-            rejectList = rejectList.filter(item => item.companyName !== companyName);
-            interviewList = interviewList.filter(item => item.companyName !== companyName);
+        rejectList = rejectList.filter(item => item.companyName !== companyName);
+        interviewList = interviewList.filter(item => item.companyName !== companyName);
 
-           
-            card.remove();
-
-                        if (currentStatus === 'reject-filter-btn') {
-                rejectSection();
-            } else if (currentStatus === 'interview-filter-btn') {
-                interviewSection();
-            } else {
-                
-                calculationCount();
+        const originalCards = allCards.querySelectorAll('.card-container');
+        originalCards.forEach(originalCard => {
+            const name = originalCard.querySelector('.company-name').innerText;
+            if (name === companyName) {
+                originalCard.remove();
             }
-            calculationCount();
+        });
+        card.remove();
+
+        if (currentStatus === 'reject-filter-btn') {
+            rejectSection();
+        } else if (currentStatus === 'interview-filter-btn') {
+            interviewSection();
         }
+        
+        calculationCount();
     }
+}
 
 })
 
