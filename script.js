@@ -160,7 +160,7 @@ mainContainer.addEventListener("click", function (event) {
 function interviewSection() {
     filterSection.innerHTML = '';
     if (interviewList.length === 0) {
-        filterSection.innerHTML = `<div class="empty text-center p-[130px] bg-white rounded-lg my-4">
+        filterSection.innerHTML = `<div class="empty text-center bg-white px-[50px] py-[20px] rounded-lg my-4 lg:p-[130px]">
                 <i class="fa-solid fa-file-lines text-9xl text-[#7DA8FF]"></i>
                 <h2 class="text-2xl font-bold text-[#002C5C] mt-6 mb-1">No jobs Available</h2>
                 <p class="text-[#323B49]">Check back soon for new job opportunities</p>
@@ -197,7 +197,7 @@ function rejectSection() {
     filterSection.innerHTML = '';
 
     if (rejectList.length === 0) {
-        filterSection.innerHTML = `<div class="empty text-center p-[130px] bg-white rounded-lg my-4">
+        filterSection.innerHTML = `<div class="empty text-center bg-white px-[50px] py-[20px] rounded-lg my-4 lg:p-[130px]">
                 <i class="fa-solid fa-file-lines text-9xl text-[#7DA8FF]"></i>
                 <h2 class="text-2xl font-bold text-[#002C5C] mt-6 mb-1">No jobs Available</h2>
                 <p class="text-[#323B49]">Check back soon for new job opportunities</p>
