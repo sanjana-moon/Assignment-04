@@ -54,19 +54,19 @@ function toggleStyle(id) {
 
 mainContainer.addEventListener("click", function (event) {
     if (event.target.classList.contains('interview-btn')) {
-        const parent = event.target.parentNode.parentNode;
+        const parent = event.target.closest('.card-container');
         const companyName = parent.querySelector('.company-name').innerText;
         const jobTitle = parent.querySelector('.job-title').innerText;
         const jobMeta = parent.querySelector('.job-meta').innerText;
         const jobStatus = parent.querySelector('.job-status').innerText;
         const jobDetails = parent.querySelector('.job-details').innerText;
 
-
-        const cardContainer = parent.parentNode;
-        cardContainer.classList.add('border-l-4', 'border-green-500')
+        parent.classList.remove('border-red-500');
+        parent.classList.add('border-l-4', 'border-green-500');
 
         const status = parent.querySelector('.job-status');
         status.innerText = 'Interview';
+        status.classList.remove('bg-red-50', 'text-red-900');
         status.classList.add('bg-green-50', 'text-green-900');
 
         const cardInfo = {
@@ -84,6 +84,7 @@ mainContainer.addEventListener("click", function (event) {
         }
 
         rejectList = rejectList.filter(item => item.companyName != cardInfo.companyName)
+
         if (currentStatus == 'reject-filter-btn') {
             rejectSection();
         }
@@ -91,19 +92,20 @@ mainContainer.addEventListener("click", function (event) {
 
     }
     else if (event.target.classList.contains('reject-btn')) {
-        const parent = event.target.parentNode.parentNode;
+        const parent = event.target.closest('.card-container');
         const companyName = parent.querySelector('.company-name').innerText;
         const jobTitle = parent.querySelector('.job-title').innerText;
         const jobMeta = parent.querySelector('.job-meta').innerText;
         const jobStatus = parent.querySelector('.job-status').innerText;
         const jobDetails = parent.querySelector('.job-details').innerText;
 
-        const cardContainer = parent.parentNode;
-        cardContainer.classList.add('border-l-4', 'border-red-500')
+        parent.classList.remove('border-green-500')
+        parent.classList.add('border-l-4', 'border-red-500')
 
 
         const status = parent.querySelector('.job-status');
         status.innerText = 'Rejected';
+        status.classList.remove('bg-green-50', 'text-green-900');
         status.classList.add('bg-red-50', 'text-red-900');
         const cardInfo = {
             companyName,
@@ -128,32 +130,32 @@ mainContainer.addEventListener("click", function (event) {
     }
 
     else if (event.target.closest('.btn-circle')) {
-    const card = event.target.closest('.card-container');
+        const card = event.target.closest('.card-container');
 
-    if (card) {
-        const companyName = card.querySelector('.company-name').innerText;
+        if (card) {
+            const companyName = card.querySelector('.company-name').innerText;
 
-        rejectList = rejectList.filter(item => item.companyName !== companyName);
-        interviewList = interviewList.filter(item => item.companyName !== companyName);
+            rejectList = rejectList.filter(item => item.companyName !== companyName);
+            interviewList = interviewList.filter(item => item.companyName !== companyName);
 
-        const originalCards = allCards.querySelectorAll('.card-container');
-        originalCards.forEach(originalCard => {
-            const name = originalCard.querySelector('.company-name').innerText;
-            if (name === companyName) {
-                originalCard.remove();
+            const originalCards = allCards.querySelectorAll('.card-container');
+            originalCards.forEach(originalCard => {
+                const name = originalCard.querySelector('.company-name').innerText;
+                if (name === companyName) {
+                    originalCard.remove();
+                }
+            });
+            card.remove();
+
+            if (currentStatus === 'reject-filter-btn') {
+                rejectSection();
+            } else if (currentStatus === 'interview-filter-btn') {
+                interviewSection();
             }
-        });
-        card.remove();
 
-        if (currentStatus === 'reject-filter-btn') {
-            rejectSection();
-        } else if (currentStatus === 'interview-filter-btn') {
-            interviewSection();
+            calculationCount();
         }
-        
-        calculationCount();
     }
-}
 
 })
 

@@ -27,8 +27,7 @@ Difference among them:
 
 ### 2. How do you create and insert a new element into the DOM?
 Answer: The process we follow to create and insert a new element into the DOM is given below:    
-    1. Create a new element into the DOM:
-        
+    1. Create a new element into the DOM:        
         Step 1: Create a new element: We use document.createElement() to create a new HTML element in memory. It is not yet in the DOM.
             Example,
                 const newDiv = document.createElement("div");
@@ -41,9 +40,9 @@ Answer: The process we follow to create and insert a new element into the DOM is
             Example,
                 newDiv.id = "myDiv";
                 newDiv.classList.add("highlight");
+                
 
     2. Insert the element into the DOM:
-
         Step 1: Select the parent or reference element: We need to choose where in the DOM we want the new element to place.
             Example,
                 const parent = document.getElementById("container");
@@ -73,6 +72,16 @@ Answer: The process we follow to create and insert a new element into the DOM is
 
 
 ### 3. What is Event Bubbling? And how does it work?
+Answer: Event Bubbling: Event Bubbling is a DOM event propagation mechanism where an event(like a click) starts from the target element (the clicked element) and then bubbles up (moves upward) through its parent and ancestor elements until it reaches the root.
+
+Working Process of Event Bubbling: When we click the target element it handles events by going through three distinct phases:
+
+    Capturing Phase: The event moves from the window down to the target element.
+
+    Target Phase: The event reaches the actual element that has been clicked.
+
+    Bubbling Phase: The event "bubbles" back up from the button through its parent elements to the window.
+
 
 ### 4. What is Event Delegation in JavaScript? Why is it useful?
 
