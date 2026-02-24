@@ -38,15 +38,18 @@ function toggleStyle(id) {
 
     if (id == 'interview-filter-btn') {
         allCards.classList.add('hidden');
+        totalNumber.innerText = `${interviewCount.innerText} of ${total.innerText}`;
         filterSection.classList.remove('hidden');
         interviewSection()
     }
     else if (id == 'all-filter-btn') {
         allCards.classList.remove('hidden');
+        totalNumber.innerText = total.innerText;
         filterSection.classList.add('hidden')
     }
     else if (id == 'reject-filter-btn') {
         allCards.classList.add('hidden');
+        totalNumber.innerText = `${rejectCount.innerText} of ${total.innerText}`;
         filterSection.classList.remove('hidden');
         rejectSection()
     }
